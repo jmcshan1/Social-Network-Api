@@ -14,10 +14,25 @@ const userSchema = new Schema(
             unique: true,
             // Must match a valid email address (look into Mongoose's matching validation)
         },
-        thoughts: { 
+        thoughts: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Thought',
+        },
+        friends: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
         }
     }
 )
+
+userSchema
+  .virtual('friendCount')
+  // Getter
+  .get(function () {
+    return this.friends.length;
+  })
+
+
 
 const Thought = model('user', userSchema);
 
