@@ -34,6 +34,7 @@ userSchema
 
 
 
-const Thought = model('user', userSchema);
+  const User = model('user', userSchema);
 
-module.exports = Thought;
+  module.exports = User;
+  
