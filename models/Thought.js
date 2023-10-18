@@ -19,11 +19,11 @@ const thoughtSchema = new Schema(
             required: true,
         },
         // Array of nested documents created with the reactionSchema
-        reactions: [reactionSchema];
+        reactions: [reactionSchema]
     }
 )
 
-userSchema
+thoughtSchema
   .virtual('reactionCount')
   // Getter
   .get(function () {

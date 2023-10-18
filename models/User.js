@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
 const userSchema = new Schema(
     {
@@ -15,11 +16,11 @@ const userSchema = new Schema(
             // Must match a valid email address (look into Mongoose's matching validation)
         },
         thoughts: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: mongoose.Types.ObjectId,
             ref: 'Thought',
         },
         friends: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: mongoose.Types.ObjectId,
             ref: 'User',
         }
     }
