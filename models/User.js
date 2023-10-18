@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const userSchema = new Schema(
     {
-        userstring: {
+        username: {
             type: String,
             required: true,
             unique: true,
@@ -14,15 +14,16 @@ const userSchema = new Schema(
             required: true,
             unique: true,
             // Must match a valid email address (look into Mongoose's matching validation)
+            // match: ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$;
         },
-        thoughts: {
+        thoughts: [{
             type: mongoose.Types.ObjectId,
-            ref: 'Thought',
-        },
-        friends: {
+            ref: 'thought',
+        }],
+        friends: [{
             type: mongoose.Types.ObjectId,
-            ref: 'User',
-        }
+            ref: 'U]user',
+        }],
     }
 )
 
