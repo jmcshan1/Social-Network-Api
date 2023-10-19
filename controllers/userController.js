@@ -5,7 +5,7 @@ module.exports = {
   async getUsers(req, res) {
     try {
       const users = await User.find();
-      res.json(users);
+      res.status(200).json(users);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -20,7 +20,7 @@ module.exports = {
         return res.status(404).json({ message: "No user with that ID" });
       }
 
-      res.json(user);
+      res.status(200).json(user);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -28,7 +28,7 @@ module.exports = {
   async createUser(req, res) {
     try {
       const dbUserData = await User.create(req.body);
-      res.json(dbUserData);
+      res.status(200).json(dbUserData);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -40,7 +40,7 @@ module.exports = {
       const user = await User.findOneAndUpdate(filter, update, {
         new: true,
       });
-      res.json(user);
+      res.status(200).json(user);
     } catch (err) {
       res.status(500).json(err);
     }

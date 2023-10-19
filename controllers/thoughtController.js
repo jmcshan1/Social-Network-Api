@@ -1,10 +1,10 @@
-const { Thought, User } = require("../models");
+const { Thought, User, reactionSchema} = require("../models");
 
 module.exports = {
   async getThoughts(req, res) {
     try {
       const thoughts = await Thought.find();
-      res.json(thoughts);
+      res.status(200).json(thoughts);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -19,7 +19,7 @@ module.exports = {
         return res.status(404).json({ message: "No thought with that ID" });
       }
 
-      res.json(thought);
+      res.status(200).json(thought);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -33,7 +33,7 @@ module.exports = {
         { $push: { thoughts: dbThoughtData } },
         { new: true, runValidators: true }
       );
-      res.json(dbThoughtData);
+      res.status(200).json(dbThoughtData);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -45,7 +45,7 @@ module.exports = {
       const thought = await Thought.findOneAndUpdate(filter, update, {
         new: true,
       });
-      res.json(thought);
+      res.status(200).json(thought);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -53,9 +53,36 @@ module.exports = {
   async deleteUser(req, res) {
     try {
       const deletethought = await Thought.deleteOne({ _id: req.params.thoughtId });
-      res.json(deletethought);
+      res.status(200).json(deletethought);
     } catch (err) {
       res.status(500).json(err);
     }
   },
+  async createReaction(req, res) {
+    try {
+      const thoughtId = ({_id: req.params.thoughtId});
+      const thoughtData = await Thought.findByIdAndUpdate(
+        thoughtId,
+        { $push: {reactions: req.body } },
+        { new: true, runValidators: true }
+      );
+      res.status(200).json(thoughtData);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+  async deleteReaction(req, res) {
+    try {
+      const thoughtId = ({_id: req.params.thoughtId});
+      const thoughtData = await Thought.findByIdAndUpdate(
+        thoughtId,
+        { $pull: {reactions: {reactionId:req.body.reactionId }} },
+        { new: true, runValidators: true }
+      );
+      res.status(200).json(thoughtData);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+  
 };

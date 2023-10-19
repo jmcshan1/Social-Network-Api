@@ -5,15 +5,13 @@ const mongoose = require('mongoose');
 const reactionSchema = new Schema(
     {
         reactionId: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             default: new mongoose.Types.ObjectId(),
         },
-        email: {
+        reactionBody: {
             type: String,
             required: true,
             max: 280,
-        },
-        thoughts: { 
         },
         username: {
             type: String,
